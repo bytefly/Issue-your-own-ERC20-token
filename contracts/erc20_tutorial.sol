@@ -103,6 +103,7 @@ contract FucksToken is ERC20Interface, Owned, SafeMath {
     string public symbol;
     string public  name;
     uint8 public decimals;
+    uint public initialSupply;
     uint public _totalSupply;
 
     mapping(address => uint) balances;
@@ -116,7 +117,8 @@ contract FucksToken is ERC20Interface, Owned, SafeMath {
         symbol = "0FUCKS";
         name = "0 Fucks Token";
         decimals = 18;
-        _totalSupply = 100000000000000000000000000;
+		initialSupply = 100000000;
+        _totalSupply = initialSupply * 10 ** uint256(decimals);
         balances[0x5A86f0cafD4ef3ba4f0344C138afcC84bd1ED222] = _totalSupply;
         emit Transfer(address(0), 0x5A86f0cafD4ef3ba4f0344C138afcC84bd1ED222, _totalSupply);
     }
