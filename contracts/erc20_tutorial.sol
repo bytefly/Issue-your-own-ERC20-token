@@ -152,6 +152,27 @@ contract FucksToken is ERC20Interface, Owned, SafeMath {
         return true;
     }
 
+    // ------------------------------------------------------------------------
+	// Mint the balance for the account and update the total supply
+    // ------------------------------------------------------------------------
+    function mint(address account, uint256 amount) public {
+        require(account != address(0), "ERC20: mint to the zero address");
+
+        _totalSupply = safeAdd(_totalSupply, amount);
+        balances[account] = safeAdd(balances[account], amount);
+        emit Transfer(address(0), account, amount);
+    }
+     
+    // ------------------------------------------------------------------------
+	// Burn the balance of the account
+    // ------------------------------------------------------------------------
+    function burn(address account, uint256 amount) public {
+        require(account != address(0), "ERC20: burn from the zero address");
+
+        balances[account] = safeSub(balances[account], amount);
+        _totalSupply = safeSub(_totalSupply, amount);
+        emit Transfer(account, address(0), amount);
+    }
 
     // ------------------------------------------------------------------------
     // Token owner can approve for spender to transferFrom(...) tokens
